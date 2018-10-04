@@ -5,7 +5,9 @@ import SeriesList from '../../SeriesList';
 class Series extends Component {
 
     state = {
-        series: []
+        series: [],
+        seriesName: '',
+        isfetching: false
       }
     
     //   componentDidMount(){
@@ -13,20 +15,40 @@ class Series extends Component {
     //   }
 
       onSeriesInputChange = e => {
+        this.setState({ seriesName: e.target.value, isfetching: true });
         fetch(`https://api.tvmaze.com/search/shows?q=${e.target.value}`)
         // fetch('https://dairyapp.herokuapp.com/api/v2/all_entries')
           .then(response => response.json())
-          .then(json => this.setState({series: json}));
+          .then(json => this.setState({series: json, isfetching: false }));
       }
 
       render(){
+          const { series, seriesName, isfetching } = this.state;
           return (
             <div>
-                The Length of series array - {this.state.series.length}
                 <div>
-                    <input type="text" onChange={this.onSeriesInputChange} /> 
+                    <input 
+                        value={seriesName} 
+                        type="text"
+                        onChange={this.onSeriesInputChange} /> 
                 </div>
-                <SeriesList list = {this.state.series} />
+                {
+                    series.length === 0 && seriesName.trim() === ''
+                    &&
+                    <p>Please Enter series name into the input</p>
+                }
+                {
+                    series.length === 0 && seriesName.trim() !== ''
+                    &&
+                    <p>No TV series have found with this name</p>
+                }
+                {
+                    isfetching && <p>Loading......</p>
+                }
+                {
+                    !isfetching && <SeriesList list = {this.state.series} />
+                }
+                
             </div>
           )
       }
