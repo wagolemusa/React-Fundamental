@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+//import SeriesList from  '../../components/SeriesList';
+import SeriesList from '../../SeriesList';
 
 class Series extends Component {
 
@@ -7,7 +9,8 @@ class Series extends Component {
       }
     
       componentDidMount(){
-        fetch('https://dairyapp.herokuapp.com/api/v2/all_entries')
+        fetch('https://api.tvmaze.com/search/shows?q=vikings')
+        // fetch('https://dairyapp.herokuapp.com/api/v2/all_entries')
           .then(response => response.json())
           .then(json => this.setState({series: json}));
       }
@@ -16,6 +19,7 @@ class Series extends Component {
           return (
             <div>
                 The Length of series array - {this.state.series.length}
+                <SeriesList list = {this.state.series} />
             </div>
           )
       }
