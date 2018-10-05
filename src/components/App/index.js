@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
+//import Series from '../../containers/Series';
+import Main from '../../Main';
+import 'whatwg-fetch';
 
 
-const Intro = (props) => (
-  <p className="App-intro">
-    Our first Component
-  </p>
-)
+
 
 class App extends Component {
+ 
   render() {
     return (
       <div className="App">
@@ -17,11 +17,11 @@ class App extends Component {
             <h1>Welcome to my Tv series</h1>
 
         </header>
-        <Intro/>
-
+          
+        <Main/>
+      
       </div>
     );
   }
 }
-
 export default App;
