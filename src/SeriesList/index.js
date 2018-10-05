@@ -1,9 +1,14 @@
 import React from  'react';
 import './index.css';
+import { Link } from 'react-router-dom';
 
-// const SeriesList = props => {
-    
-// }
+const SeriesListItem = ({ series }) => (  
+    <li>
+        <Link to={`/series/${series.show.id}`}>
+        {series.show.name}
+        </Link>
+    </li>
+)
 
 
 const SeriesList = (props) => {
@@ -11,10 +16,7 @@ const SeriesList = (props) => {
         <div>
             <ul className="series-list">
                 {props.list.map(series => (
-                    <li key={series.show.id}>
-                    {series.show.name} 
-                    
-                    </li> 
+                    <SeriesListItem series={series} key={series.show.id} /> 
                 ))}
             </ul>
         </div>
